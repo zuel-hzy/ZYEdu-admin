@@ -54,7 +54,7 @@ public class CodeGen {
 
         // 5.策略配置
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude("edu_subject");
+        strategy.setInclude("edu_course","edu_course_description","edu_chapter","edu_video");
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setTablePrefix(pc.getModuleName() + "_");
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);

@@ -6,7 +6,7 @@ import lombok.Data;
 
 @ApiModel(value = "Teacher查询对象", description = "教师查询对象封装")
 @Data
-public class TeacherQuery {
+public class TeacherQueryVo {
     private static final long serialVersionUID = 1L;
     @ApiModelProperty(value = "教师名称,模糊查询")
     private String name;

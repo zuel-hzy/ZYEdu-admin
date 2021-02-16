@@ -5,7 +5,7 @@ import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/edu_teacher/user")
+@RequestMapping("/edu/user")
 @Api(description = "登录管理")
 @CrossOrigin
 public class EduLoginController {
