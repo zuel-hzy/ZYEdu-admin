@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Component
-@FeignClient(value = "service-vod")
+@FeignClient(name = "service-vod",fallback = VodFeignClient.class)
 public interface VodClient {
     //定义要调用方法的路径
     //根据id删除视频
