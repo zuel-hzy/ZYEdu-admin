@@ -8,12 +8,15 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.vod.model.v20170321.DeleteVideoRequest;
 import com.education.config.exception.EduException;
 import com.education.vod.service.VodService;
-import com.education.vod.utils.InitVodClient;
 import com.education.vod.utils.ConstantPropertiesUtil;
+import com.education.vod.utils.InitVodClient;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class VodServiceImpl implements VodService {
@@ -62,5 +65,36 @@ public class VodServiceImpl implements VodService {
         }catch (ClientException e){
             throw new EduException(20001, "视频删除失败");
         }
+    }
+
+    @Override
+    public void removeVideoList(List videoIdList) {
+        try{
+            // 初始化对象
+            DefaultAcsClient client = InitVodClient.initVodClient(
+                    ConstantPropertiesUtil.KEY_ID,
+                    ConstantPropertiesUtil.KEY_SECRET);
+
+            // 创建删除视频request对象
+            DeleteVideoRequest request = new DeleteVideoRequest();
+
+            String videoIds = StringUtils.join(videoIdList.toArray(),",");
+            // 向request设置视频id
+            request.setVideoIds(videoIds);
+
+            client.getAcsResponse(request);
+
+        }catch (ClientException e){
+            throw new EduException(20001, "视频删除失败");
+        }
+    }
+
+    public static void main(String[] args) {
+        List<String> list = new ArrayList<>();
+        list.add("11");
+        list.add("22");
+        list.add("33");
+        String videoIds = StringUtils.join(list.toArray(),",");
+        System.out.println(videoIds);
     }
 }

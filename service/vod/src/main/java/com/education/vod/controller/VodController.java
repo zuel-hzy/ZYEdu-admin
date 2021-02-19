@@ -3,9 +3,12 @@ package com.education.vod.controller;
 import com.education.utils.result.Result;
 import com.education.vod.service.VodService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/vod/video")
@@ -28,5 +31,17 @@ public class VodController {
     public Result removeVideo(@PathVariable String id){
         vodService.removeVideo(id);
         return  Result.ok();
+    }
+
+    /**
+     * 批量删除阿里云上的多个
+     */
+    @DeleteMapping("removeVideoList")
+    public Result removeVideoList(
+            @ApiParam(name = "videoIdList", value = "云端视频多个id", required = true)
+            @RequestParam("videoIdList") List<String> videoIdList){
+
+        vodService.removeVideoList(videoIdList);
+        return Result.ok().message("视频删除成功");
     }
 }
