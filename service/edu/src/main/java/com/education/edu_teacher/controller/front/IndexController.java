@@ -8,6 +8,7 @@ import com.education.edu_teacher.service.EduTeacherService;
 import com.education.utils.result.Result;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,16 +28,18 @@ public class IndexController {
     private EduTeacherService teacherService;
 
     //查询前4条热门课程，查询前4条名师
-     @GetMapping("getIndex")
-     public Result index() {
-         QueryWrapper<EduCourse> wrapper = new QueryWrapper<>();
-         wrapper.orderByDesc("id");wrapper.last("limit 4");
-         List<EduCourse> eduList = courseService.list(wrapper);
+    @Cacheable(value = "index",key = "'teacherAndeCourseInfo'")
+    @GetMapping("getIndex")
+    public Result index() {
+        QueryWrapper<EduCourse> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("id");wrapper.last("limit 4");
+        List<EduCourse> eduList = courseService.list(wrapper);
 
-         QueryWrapper<EduTeacher> wrapperTeacher = new QueryWrapper<>();
-         wrapperTeacher.orderByDesc("id");
-         wrapperTeacher.last("limit 4");
-         List<EduTeacher> teacherList = teacherService.list(wrapperTeacher);
+        QueryWrapper<EduTeacher> wrapperTeacher = new QueryWrapper<>();
+        wrapperTeacher.orderByDesc("id");
+        wrapperTeacher.last("limit 4");
+        List<EduTeacher> teacherList = teacherService.list(wrapperTeacher);
 
-         return Result.ok().data("eduList",eduList).data("teacherList",teacherList);    }
+        return Result.ok().data("eduList",eduList).data("teacherList",teacherList);
+    }
 }
