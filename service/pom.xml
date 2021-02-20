@@ -18,6 +18,7 @@
         <module>cms</module>
         <module>acl</module>
         <module>sms</module>
+        <module>account</module>
     </modules>
 
     <!-- 项目打包时会将java目录中的*.xml文件也进行打包 -->
