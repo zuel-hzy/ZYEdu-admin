@@ -1,4 +1,4 @@
-package com.education.msm;
+package com.education.sms;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,10 +10,10 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableDiscoveryClient
 @EnableFeignClients
 @ComponentScan(basePackages ={"com.education"})
-public class MsmApplication {
+public class SmsApplication {
     public static void main(String[] args) {
         try {
-            SpringApplication.run(MsmApplication.class, args);
+            SpringApplication.run(SmsApplication.class, args);
         }catch(Exception e) {
             e.printStackTrace();
         }

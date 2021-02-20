@@ -17,7 +17,7 @@
         <module>vod</module>
         <module>cms</module>
         <module>acl</module>
-        <module>msm</module>
+        <module>sms</module>
     </modules>
 
     <!-- 项目打包时会将java目录中的*.xml文件也进行打包 -->
