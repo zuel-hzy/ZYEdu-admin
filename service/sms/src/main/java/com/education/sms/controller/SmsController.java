@@ -38,6 +38,7 @@ public class SmsController {
         Map<String,Object> param = new HashMap<>();
         param.put("code",code);
 
+        System.out.println(code);
         boolean isSend = smsService.send(param,phone);
         if(isSend){
             //将验证码放入redis
