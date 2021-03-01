@@ -17,7 +17,7 @@ public class testVod {
 
     public static void main(String[] args) throws ClientException {
 
-
+        getPlayAuth();
 
 
     }
@@ -65,7 +65,8 @@ public class testVod {
         GetVideoPlayAuthResponse response = new GetVideoPlayAuthResponse();
 
         //向request设置视频id
-        request.setVideoId("c82b4d2d345a4340824f60d079e4d5b9");
+        request.setVideoId("2ac7ca3cf43e460986014f74ac687c5c");
+        request.setAuthInfoTimeout(200L);
         //调用初始化对象的方法传递request获取response
         response = client.getAcsResponse(request);
 

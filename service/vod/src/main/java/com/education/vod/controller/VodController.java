@@ -1,7 +1,13 @@
 package com.education.vod.controller;
 
+import com.aliyuncs.DefaultAcsClient;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
+import com.education.config.exception.EduException;
 import com.education.utils.result.Result;
 import com.education.vod.service.VodService;
+import com.education.vod.utils.ConstantPropertiesUtil;
+import com.education.vod.utils.InitVodClient;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +49,20 @@ public class VodController {
 
         vodService.removeVideoList(videoIdList);
         return Result.ok().message("视频删除成功");
+    }
+
+    //根据视频id获取视频播放权证
+    @GetMapping("getPlayAuth/{id}")
+    public Result getPlayAuth(@PathVariable String id){
+        try{
+            DefaultAcsClient client = InitVodClient.initVodClient(ConstantPropertiesUtil.KEY_ID, ConstantPropertiesUtil.KEY_SECRET);
+            GetVideoPlayAuthRequest request = new GetVideoPlayAuthRequest();
+            request.setVideoId(id);
+            GetVideoPlayAuthResponse response = client.getAcsResponse(request);
+            String playAuth = response.getPlayAuth();
+            return Result.ok().data("playAuth",playAuth);
+        }catch (Exception e){
+            throw new EduException(20001,"获取视频播放权证失败");
+        }
     }
 }

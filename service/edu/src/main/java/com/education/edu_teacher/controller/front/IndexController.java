@@ -27,7 +27,6 @@ public class IndexController {
     @Autowired
     private EduTeacherService teacherService;
 
-    //TODO:将该服务移至单独模块
     //查询前4条热门课程，查询前4条名师
     @Cacheable(value = "index",key = "'teacherAndeCourseInfo'")
     @GetMapping("getIndex")
